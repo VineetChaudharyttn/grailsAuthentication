@@ -1,14 +1,11 @@
 package grailsAuthentication
 
 import com.grailsAuthentication.User
-import grails.plugin.springsecurity.SpringSecurityService
-import grails.plugin.springsecurity.userdetails.GrailsUserDetailsService
-import org.apache.tomcat.util.net.jsse.openssl.Authentication
+import grails.converters.JSON
 
 class LoginController extends grails.plugin.springsecurity.LoginController {
 
     def springSecurityService
-    def grailsUserDetailsService
 
     @Override
     def auth() {
@@ -33,5 +30,16 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
             springSecurityService.reauthenticate(userDetails.username)
         }
         return true
+    }
+
+    def authfail(){
+        def msg="Wrong EmailId or Password !!!! please retry."
+        if (springSecurityService.isAjax(request)) {
+            render([error: msg] as JSON)
+        }
+        else {
+            flash.message = msg
+            redirect action: 'auth', params: params
+        }
     }
 }

@@ -29,6 +29,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/welcome/index'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl  = '/welcome/index'
 
 //grails.plugin.springsecurity.auth.loginFormUrl = '/'
 grails.plugin.springsecurity.logout.postOnly = false

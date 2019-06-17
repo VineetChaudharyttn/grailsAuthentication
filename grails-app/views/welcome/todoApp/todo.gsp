@@ -29,21 +29,21 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="row">
+            <div class="row" ng-repeat="task in tasks">
                 <div class="col-3">
-                    <h2>
-
-                    </h2>
+                    <h4>
+                        <a href="#/{{$index}}">{{task.date | date}}</a>
+                    </h4>
                 </div>
 
                 <div class="col-6">
-                    <h2>
-
-                    </h2>
+                    <h4>
+                        <a href="#/{{$index}}">{{task.title}}</a>
+                    </h4>
                 </div>
                 <div class="col-3">
                     <h3>
-
+                        <input type="checkbox" ng-model="task.status" ng-click="update(task);" />
                     </h3>
                 </div>
             </div>
@@ -59,10 +59,10 @@
     </div>
 
 
-    <div ng-repeat="task in tasks">
+    %{--<div ng-repeat="task in tasks">--}%
 
-        <a href="#/{{$index}}">taskApi</a>
-    </div>
+        %{--<a href="#/{{$index}}">taskApi</a>--}%
+    %{--</div>--}%
 </div>
 </body>
 </html>

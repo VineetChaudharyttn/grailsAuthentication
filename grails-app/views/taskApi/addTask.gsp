@@ -25,7 +25,7 @@
                         Date:
                     </td>
                     <td>
-                        <input type="date" ng-model="task.date" required>
+                        <input type="date" ng-model="task.date"  min="{{date | date:'yyyy-MM-dd'}}" required>
                     </td>
                 </tr>
                 <tr>

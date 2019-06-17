@@ -17,4 +17,16 @@ class Task {
         status blank: true, value: false
         user blank: false
     }
+
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "date=" + date +
+                ", title='" + title + '\'' +
+                ", task='" + task + '\'' +
+                ", status=" + status +
+                ", user=" + user +
+                '}';
+    }
 }

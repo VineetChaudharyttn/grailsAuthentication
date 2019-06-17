@@ -1,6 +1,10 @@
-app.controller('TodoController', ['$scope','tasks', function($scope,tasks) {
+app.controller('TodoController', ['$scope','tasks','registerService', function($scope,tasks,registerService) {
     tasks.success(function(data){
         $scope.tasks=data;
-        console.log(data);
     });
+    $scope.update=function (task) {
+        console.log("update");
+        registerService.updateTaskToDB(task);
+    };
+
 }]);

@@ -110,6 +110,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
+
 </script>
 
 <!--
@@ -141,28 +142,24 @@
         <div class="form-group">
             <label for="username">Email address</label>
             <input type="email" class="form-control text_" aria-describedby="emailHelp"
-                   name="${usernameParameter ?: 'username'}" id="username" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                   name="${usernameParameter ?: 'username'}" id="username" placeholder="Enter email" required
+                   autofocus>
         </div>
 
         <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control text_" name="${passwordParameter ?: 'password'}" id="password"
-                   placeholder="Password">
+                   placeholder="Password" required>
         </div>
 
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input chk" name="${rememberMeParameter ?: 'remember-me'}"
-                   id="remember_me" <g:if test='${hasCookie}'>checked="checked"</g:if>/>
-            <label class="form-check-label" for="remember_me"><g:message
-                    code='springSecurity.login.remember.me.label'/>Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary" id="submit"
+        <button type="submit" class="btn btn-primary ml-3" id="submit"
                 value="${message(code: 'springSecurity.login.button')}">submit</button>
+        <button type="submit" class="btn btn-secondary float-right mr-3" id="forgetPassword" >Forget password</button>
+        <button type="submit" class="btn btn-secondary mr-3 float-right" id="register" >register</button>
 
     </form>
     <br/>
-    <fb:login-button  scope="public_profile,email" onlogin="checkLoginState();">
+    <fb:login-button  scope="public_profile,email" class="ml-3" onlogin="checkLoginState();">
     </fb:login-button>
     <br/>
     <g:if test="${flash.message != null}">

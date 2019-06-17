@@ -12,14 +12,19 @@ class WelcomeController {
     SpringSecurityService springSecurityService
     @Secured("ROLE_USER")
     def index() {
+        log.info("ToDo application access")
         render(view: "welcome",model:["user":springSecurityService.currentUser] )
     }
 
 
     @Secured("permitAll")
     def register(UserCO userCO){
+        println(userCO.username)
         User user=User.findByUsername(userCO.username)
+        println(user.username)
         if (user==null){
+
+            log.info("User registeration")
             user=new  User()
             user.username= userCO.username
             user.firstName= userCO.firstname
@@ -32,6 +37,7 @@ class WelcomeController {
             user.save(flush:true,failOnError:true)
             render "register"
         }
+
         else render "exist"
     }
 

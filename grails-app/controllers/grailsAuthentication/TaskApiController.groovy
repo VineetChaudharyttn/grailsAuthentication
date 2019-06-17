@@ -15,14 +15,18 @@ class TaskApiController {
 
     def index() {
         def task=Task.findAllByUser(springSecurityService.currentUser)
-        if(task==null)
+        if(task==null){
+            log.info("No task in database")
             render "empty"
+        }
         else{
+            log.info("Tasks fatched from database")
             render task as JSON
         }
     }
 
     def addTask(){
+        log.info("New task Form")
         render (view: "addTask")
     }
 
@@ -30,16 +34,13 @@ class TaskApiController {
         task.setUser(springSecurityService.currentUser)
         task.setStatus(false)
         task.save(flush: true,failOnError:true)
+        log.info("Task register successfully")
         render "Success"
     }
 
     def update(Task task){
-        println(task)
-        def state=Task.executeUpdate("update Task set status = "+task.status+" where id = "+task.id)
-        Task task1=Task.findById(task.id)
-        println(state)
-        task1.setStatus(task.status)
-        println(task1)
+        log.info("Task status changed")
+        Task.executeUpdate("update Task set status = "+task.status+" where id = "+task.id)
         render "success"
     }
 }

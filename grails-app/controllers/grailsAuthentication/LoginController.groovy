@@ -15,6 +15,8 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
             return
         }
 
+        log.info(" Login page")
+
         String postUrl = request.contextPath + conf.apf.filterProcessesUrl
         render view: 'auth', model: [postUrl            : postUrl,
                                      rememberMeParameter: conf.rememberMe.parameter,
@@ -29,10 +31,12 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
         if (userDetails){
             springSecurityService.reauthenticate(userDetails.username)
         }
+        log.info("FaceBook Authentication success")
         return true
     }
 
     def authfail(){
+        log.info("Authentication fails")
         def msg="Wrong EmailId or Password !!!! please retry."
         if (springSecurityService.isAjax(request)) {
             render([error: msg] as JSON)
@@ -42,4 +46,5 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
             redirect action: 'auth', params: params
         }
     }
+
 }

@@ -53,7 +53,5 @@
 <asset:javascript src="services/tasks.js"></asset:javascript>
 
 <asset:javascript src="services/registerService.js"></asset:javascript>
-
-%{--<asset:javascript src="services/updateStatus.js"></asset:javascript>--}%
 </body>
 </html>

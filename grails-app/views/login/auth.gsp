@@ -9,7 +9,14 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -138,39 +145,145 @@
         </div>
     </nav>
 
-    <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" class="cssform" autocomplete="off">
-        <div class="form-group">
-            <label for="username">Email address</label>
-            <input type="email" class="form-control text_" aria-describedby="emailHelp"
-                   name="${usernameParameter ?: 'username'}" id="username" placeholder="Enter email" required
-                   autofocus>
+    <div class="btn-group-toggle" data-toggle="buttons">
+
+        <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option1"
+           data-toggle="tab" href="#nav-signup">Register</a>
+        <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option2"
+           data-toggle="tab" href="#nav-login">Login</a>
+    </div>
+
+    <div class="tab-content p-4" id="nav-tabContent">
+        <div class="tab-pane fade  show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
+            <!-- Login form -->
+            <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" class="cssform"
+                  autocomplete="off">
+                <div class="form-group">
+                    <label for="username">Email address</label>
+                    <input type="email" class="form-control text_" aria-describedby="emailHelp"
+                           name="${usernameParameter ?: 'username'}" id="username" placeholder="Enter email"
+                           required
+                           autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control text_" name="${passwordParameter ?: 'password'}"
+                           id="password"
+                           placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary ml-3" id="submit"
+                        value="${message(code: 'springSecurity.login.button')}">Login</button>
+            </form>
+            <a href="#" class="btn btn-secondary float-right mr-3" data-dismiss="modal" data-toggle="modal"
+               data-target="#forgotPassword">Forgot Password</a>
+
+
+
+            <br/>
+            <fb:login-button scope="public_profile,email" class="ml-3" onlogin="checkLoginState();">
+            </fb:login-button>
+            <br/>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control text_" name="${passwordParameter ?: 'password'}" id="password"
-                   placeholder="Password" required>
+        <div class="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab">
+            <form action="/login/register" method="post" >
+                <div class="newer-row form-label-group">
+                    <input type="text" ng-model="user.firstname" name="firstname" minlength="3" maxlength="20" id="inputFirstName"
+                           class="form-control"
+                           placeholder="First name" required
+                           autofocus>
+                </div>
+
+                <div class="newer-row form-label-group">
+                    <input type="text" ng-model="user.lastname" name="lastname" minlength="3" maxlength="20" id="inputLastName"
+                           class="form-control"
+                           placeholder="Last name" required>
+                </div>
+
+                <div class="newer-row form-label-group">
+                    <input type="email" ng-model="user.username" name="username" id="inputEmail" maxlength="35" class="form-control"
+                           placeholder="Email address" required
+                           autofocus>
+
+                    <div id="unavail"></div>
+                </div>
+
+                <div class="newer-row form-label-group">
+                    <input type="password" id="confirmpassword"  class="form-control" minlength="6" maxlength="10"
+                           placeholder="Password" required>
+                </div>
+
+                <div class="newer-row form-label-group">
+                    <input type="password" ng-model="user.password" name="password" id="inputPassword" class="form-control"
+                           placeholder="Confirm Password" required>
+                    <div id="err"></div>
+                </div>
+
+                <div class="newer-row">
+                    <button class="btn btn-success btn-lg btn-block" id="confirm" type="submit">Sign up</button>
+                </div>
+            </form>
+
         </div>
+        <g:if test="${flash.error != null}">
+            <div class="alert alert-danger" role="alert">
+                <g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
+            </div>
+        </g:if>
+        <g:if test="${flash.message != null}">
+            <div class="alert alert-success" role="alert">
+                <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+            </div>
+        </g:if>
 
-        <button type="submit" class="btn btn-primary ml-3" id="submit"
-                value="${message(code: 'springSecurity.login.button')}">submit</button>
-        <button type="submit" class="btn btn-secondary float-right mr-3" id="forgetPassword" >Forget password</button>
-        <button type="submit" class="btn btn-secondary mr-3 float-right" id="register" >register</button>
+    </div>
 
-    </form>
-    <br/>
-    <fb:login-button  scope="public_profile,email" class="ml-3" onlogin="checkLoginState();">
-    </fb:login-button>
-    <br/>
-    <g:if test="${flash.message != null}">
-        <div class="alert alert-danger" role="alert">
-        <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+    <div class="modal fade" id="forgotPassword" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title align-content-center">Forgot Password</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Enter your Email address and we'll send you a link to reset your password!</p>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <form action="/login/resetPassword" method="post" enctype="multipart/form-data">
+                                <div class="newer-row form-label-group">
+                                    <input type="email" ng-model="user.username" name="username" class="form-control"
+                                           placeholder="Email address" required
+                                           autofocus>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <div class="form-group">
+
+                                        <button type="submit" class="btn btn-primary">Reset Password</button>
+
+                                        <button type="button" class="btn btn-primary"
+                                                data-dismiss="modal">Close</button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </g:if>
-
-
+    </div>
 </div>
 
+<asset:javascript src="confirmPass.js"></asset:javascript>
+<asset:javascript src="chackMailAvailability.js"></asset:javascript>
 </body>
 </html>
 

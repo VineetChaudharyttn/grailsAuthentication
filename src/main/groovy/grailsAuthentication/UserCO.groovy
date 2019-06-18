@@ -14,4 +14,15 @@ class UserCO implements grails.validation.Validateable {
         lastname blank: false
         password blank: false
     }
+
+
+    @Override
+    public String toString() {
+        return "UserCO{" +
+                "username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

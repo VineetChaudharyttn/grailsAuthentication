@@ -9,6 +9,8 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
 
     def springSecurityService
 
+    def mailService
+
     @Override
     def auth() {
         def conf = getConf()
@@ -49,11 +51,11 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
     }
 
     def resetPassword(UserCO userCO) {
+        log.info("Password reset token is generated")
         User user= User.findByUsername(userCO.username)
         def msg
-        if (user==null) {
-            println("not found")
-            msg = "We didn't found an account for that "+userCO.username+" address."
+        if (!user) {
+            msg = "We cann't found an account for "+userCO.username+" address."
             if (springSecurityService.isAjax(request)) {
                 render([error: msg] as JSON)
             } else {
@@ -61,14 +63,17 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
                 redirect action: 'auth', params: params
             }
         } else {
-//            user.setResetToken(UUID.randomUUID().toString())
-//
-//            user.save(flush:true,failOnError:true)
-//
-//            String message="To reset your password, click the link below:\n http://localhost:8080/reset?token=" + user.getResetToken()
-//            String subject="Password Reset Request"
-//            emailService.sandMail(user,message,subject)
+            user.setResetToken(UUID.randomUUID().toString())
 
+            user.save(flush:true,failOnError:true)
+
+            String message="To reset your password, click the link below:\n http://localhost:8080/login/setNewPassword?token=" + user.getResetToken()
+            mailService.sendMail {
+                to user.username
+                from "faltu4209211@gmail.com"
+                subject "Password Reset Request"
+                text message
+            }
             msg="A password reset link has been sent to " + userCO.username
             if (springSecurityService.isAjax(request)) {
                 render([message: msg] as JSON)
@@ -79,44 +84,47 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
         }
 
     }
-/*
+
 
     def setNewPassword(String token) {
-        Optional<User> optional = userService.findUserByResetToken(token);
-        if (!optional.isPresent()) {
-            model.addAttribute("errorMessage", "Sorry token is Already used.");
-            model.addAttribute("user", new User());
-            return "login";
+        log.info("Password reset using mail token")
+        def msg
+        User user = User.findByResetToken(token)
+        if (!user) {
+            msg="Sorry token is Already used."
+            if (springSecurityService.isAjax(request)) {
+                render([error: msg] as JSON)
+            } else {
+                flash.error = msg
+                redirect action: 'auth', params: params
+            }
         }
-        User user = new User();
-        user.setResetToken(token);
-        model.addAttribute("user", user);
-        return "passwordreset";
+        else{
+            render(view: "resetPassword",model: [user:user])
+        }
     }
 
 
-    def update(User user) {
-        Optional<User> optionalUser = userService.findUserByResetToken(user.getResetToken());
-        String password = user.getPassword();
-        if (optionalUser.isPresent()) {
-            user = optionalUser.get();
+    def updatePass(UserCO userCO) {
+        log.info("Updating password reset by user")
+        User user = User.findByResetToken(userCO.resetToken)
+        user.setPassword(userCO.password)
+        user.setResetToken(null)
+        user.save(flush:true,failOnError:true)
+
+        def msg="Password reset successfully, You may Login ........."
+
+        if (springSecurityService.isAjax(request)) {
+            render([message: msg] as JSON)
         } else {
-            model.addAttribute("errorMessage", "Password not reset successfully, You not may Login .........");
-            return "login";
+            flash.message = msg
+            redirect action: 'auth', params: params
         }
-        user.setPassword(bCryptPasswordEncoder.encode(password));
-        user.setResetToken(null);
-        userService.register(user);
-        model.addAttribute("successMessage", "Password reset successfully, You may Login .........");
-
-        return "login";
-    }*/
-
-    def forget() {
-        render(view: "forget")
     }
+
 
     def register(UserCO userCO) {
+        log.info("New user register")
         User user=new User()
 
         user.username= userCO.username
@@ -141,8 +149,9 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
     }
 
     def checkAvailability(String username){
+        log.info("Checking user existence")
         User user=User.findByUsername(username)
-        if (user==null){
+        if (!user){
             render ""
         }
         else

@@ -19,6 +19,7 @@ class User implements Serializable {
 	boolean passwordExpired
 	String firstName
 	String lastName
+	String resetToken
 
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this)*.role
@@ -46,6 +47,7 @@ class User implements Serializable {
 		username blank: false, unique: true
 		firstName blank: false
 		lastName blank: false
+		resetToken blank: false, nullable: true
 	}
 
 	static mapping = {
@@ -57,9 +59,9 @@ class User implements Serializable {
 	public String toString() {
 		return "User{" +
 				"username='" + username + '\'' +
-				", password='" + password + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
+				", resetToken='" + resetToken + '\'' +
 				'}';
 	}
 }

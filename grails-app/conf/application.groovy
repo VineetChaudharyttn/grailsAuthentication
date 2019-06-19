@@ -35,3 +35,16 @@ grails.plugin.springsecurity.logout.postOnly = false
 logout.afterLogoutUrl = "/"
 grails.plugin.springsecurity.apf.storeLastUsername = true
 grails.plugin.springsecurity.password.algorithm = 'bcrypt'
+
+grails {
+	mail {
+		host = "smtp.gmail.com"
+		port = 465
+		username = "faltu4209211@gmail.com"
+		password = "4209211faltu"
+		props = ["mail.smtp.auth":"true",
+				 "mail.smtp.socketFactory.port":"465",
+				 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+				 "mail.smtp.socketFactory.fallback":"false"]
+	}
+}

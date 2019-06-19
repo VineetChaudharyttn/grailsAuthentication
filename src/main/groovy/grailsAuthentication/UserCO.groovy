@@ -5,6 +5,7 @@ class UserCO implements grails.validation.Validateable {
     String firstname
     String lastname
     String password
+    String resetToken
 
     static transients = ['springSecurityService']
 
@@ -13,6 +14,7 @@ class UserCO implements grails.validation.Validateable {
         firstname blank: false
         lastname blank: false
         password blank: false
+
     }
 
 
@@ -23,6 +25,7 @@ class UserCO implements grails.validation.Validateable {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
+                ", resetToken='" + resetToken + '\'' +
                 '}';
     }
 }

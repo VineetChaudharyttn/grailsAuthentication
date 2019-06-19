@@ -145,7 +145,7 @@
         </div>
     </nav>
 
-    <div class="btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group-toggle mt-3" data-toggle="buttons">
 
         <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option1"
            data-toggle="tab" href="#nav-signup">Register</a>
@@ -185,6 +185,16 @@
             <fb:login-button scope="public_profile,email" class="ml-3" onlogin="checkLoginState();">
             </fb:login-button>
             <br/>
+            <g:if test="${flash.error != null}">
+                <div class="alert alert-danger" role="alert">
+                    <g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
+                </div>
+            </g:if>
+            <g:if test="${flash.message != null}">
+                <div class="alert alert-success" role="alert">
+                    <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+                </div>
+            </g:if>
         </div>
 
         <div class="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab">
@@ -227,16 +237,7 @@
             </form>
 
         </div>
-        <g:if test="${flash.error != null}">
-            <div class="alert alert-danger" role="alert">
-                <g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
-            </div>
-        </g:if>
-        <g:if test="${flash.message != null}">
-            <div class="alert alert-success" role="alert">
-                <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
-            </div>
-        </g:if>
+
 
     </div>
 

@@ -14,15 +14,13 @@ class TaskApiController {
     SpringSecurityService springSecurityService
 
     def index() {
-        def task=Task.findAllByUser(springSecurityService.currentUser)
-        if(task==null){
-            log.info("No task in database")
-            render "empty"
+        Map response = [status:'Success']
+        List<Task> tasks=Task.findAllByUser(springSecurityService.currentUser)
+        if(tasks.size()==0){
+            response.message = 'No Task found in DB'
         }
-        else{
-            log.info("Tasks fatched from database")
-            render task as JSON
-        }
+        response.tasks = tasks
+        render response as JSON
     }
 
     def addTask(){

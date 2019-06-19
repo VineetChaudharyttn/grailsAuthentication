@@ -14,7 +14,7 @@ class Task {
         date blank: false
         title blank: false
         task blank: false
-        status blank: true, value: false
+        status blank: true, nullable: true, value: false
         user blank: false
     }
 

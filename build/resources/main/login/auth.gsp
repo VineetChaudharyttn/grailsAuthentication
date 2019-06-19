@@ -145,7 +145,7 @@
         </div>
     </nav>
 
-    <div class="btn-group-toggle" data-toggle="buttons">
+    <div class="btn-group-toggle mt-3" data-toggle="buttons">
 
         <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option1"
            data-toggle="tab" href="#nav-signup">Register</a>

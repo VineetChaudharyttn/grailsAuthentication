@@ -3,7 +3,10 @@ app.config(function ($routeProvider) {
     $routeProvider.when('/',{
         controller: 'TodoController',
         templateUrl: '/welcome/toDo'
-    }).when('/:taskId',{
+    }).when('/:signUp',{
+        controller: 'TodoController',
+        templateUrl: '/welcome/toDo'
+    }).when('/task/:taskId',{
         controller: 'TaskController',
         templateUrl: '/welcome/task'
     }).when('/addTask/add',{

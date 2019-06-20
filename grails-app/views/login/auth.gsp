@@ -269,7 +269,7 @@
                             <form action="/login/resetPassword" method="post" enctype="multipart/form-data" name="forget" novalidate>
                                 <div class="newer-row form-label-group">
                                     <input type="email" ng-model="user.username" name="username" class="form-control"
-                                           placeholder="Email address" ng-model="username" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required
+                                           placeholder="Email address" ng-model="username" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model-options="{ updateOn: 'blur' }" required
                                            autofocus>
 
                                     <span style="color:Red" ng-show="forget.username.$dirty&&forget.username.$error.pattern">Please Enter Valid Email</span>

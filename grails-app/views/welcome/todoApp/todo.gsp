@@ -32,13 +32,13 @@
             <div class="row" ng-repeat="task in tasks">
                 <div class="col-3">
                     <h4>
-                        <a href="#/{{$index}}">{{task.date | date}}</a>
+                        <a href="#/task/{{$index}}">{{task.date | date}}</a>
                     </h4>
                 </div>
 
                 <div class="col-6">
                     <h4>
-                        <a href="#/{{$index}}">{{task.title}}</a>
+                        <a href="#/task/{{$index}}">{{task.title}}</a>
                     </h4>
                 </div>
                 <div class="col-3">

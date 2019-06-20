@@ -29,10 +29,9 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/welcome/index'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
-
-//grails.plugin.springsecurity.auth.loginFormUrl = '/'
+//grails.plugin.springsecurity.auth.loginFormUrl = '#/login'
 grails.plugin.springsecurity.logout.postOnly = false
-logout.afterLogoutUrl = "/"
+//logout.afterLogoutUrl = "/"
 grails.plugin.springsecurity.apf.storeLastUsername = true
 grails.plugin.springsecurity.password.algorithm = 'bcrypt'
 

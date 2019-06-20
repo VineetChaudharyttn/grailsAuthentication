@@ -16,16 +16,16 @@
         </h1>
     </div>
 
-    <form name="RegisterTaskfrom" ng-submit="RegisterTask();">
+    <form name="RegisterTaskfrom" ng-submit="RegisterTask();" novalidate>
 
         <div class="card-body ">
-            <table>
+            <table class="col-12">
                 <tr>
                     <td>
                         Date:
                     </td>
                     <td>
-                        <input type="date" ng-model="task.date"  min="{{date | date:'yyyy-MM-dd'}}" required>
+                        <input type="date" class="col-6" ng-model="task.date"  min="{{date | date:'yyyy-MM-dd'}}" required>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +33,7 @@
                         Title:
                     </td>
                     <td>
-                        <input type="text" ng-model="task.title" required>
+                        <input type="text" class="col-6" ng-model="task.title" required>
                     </td>
                 </tr>
                 <tr>
@@ -41,13 +41,13 @@
                         Task:
                     </td>
                     <td>
-                        <input type="text" ng-model="task.task" required>
+                        <textarea class="form-control col-6" ng-model="task.task" aria-label="With textarea" required></textarea>
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="card-footer">
+        <div  class="card-footer">
             <input type="submit" class="btn btn-primary"  value="submit" ng-disabled="RegisterTaskfrom.$invalid">
 
             <a href="#/" class="btn btn-primary">Back</a>

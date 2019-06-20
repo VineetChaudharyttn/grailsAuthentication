@@ -3,6 +3,7 @@ package grailsAuthentication
 import com.grailsAuthentication.Role
 import com.grailsAuthentication.User
 import com.grailsAuthentication.UserRole
+import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import org.springframework.security.access.annotation.Secured
 
@@ -10,6 +11,8 @@ import org.springframework.security.access.annotation.Secured
 class WelcomeController {
 
     SpringSecurityService springSecurityService
+
+    def mailService
     @Secured("ROLE_USER")
     def index() {
         log.info("ToDo application access")
@@ -52,5 +55,23 @@ class WelcomeController {
         render(view: "todoApp/task")
     }
 
+    def invite(UserCO userCO){
+        User user=springSecurityService.currentUser
+        user=User.findByUsername(user.username)
+        String message="Hiiii..... \n You have been invited to join ToDo application by you friend "+user.firstName+" "+user.lastName+ ". \nPlease visit the link bellow \nhttp://localhost:8080/welcome/index\n\n\nThankyou"
+        mailService.sendMail {
+            to userCO.username
+            subject 'Invitation from your friend '+user.username
+            from "faltu4209211@gmail.com"
+            text message
+        }
+        message="Invitation is successfully sent to "+userCO.username
+        if (springSecurityService.isAjax(request)) {
+            render([message: message] as JSON)
+        } else {
+            flash.message = message
+            redirect  action: 'index', params: params
+        }
+    }
 
 }

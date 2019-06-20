@@ -51,18 +51,14 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-9">
-
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invite">
+                        Invite a friend
+                    </button>
                 </div>
                 <a class="btn btn-outline-success" href="#/addTask/add">+</a>
             </div>
         </div>
     </div>
-
-
-    %{--<div ng-repeat="task in tasks">--}%
-
-        %{--<a href="#/{{$index}}">taskApi</a>--}%
-    %{--</div>--}%
 </div>
 </body>
 </html>

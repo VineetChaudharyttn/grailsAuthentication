@@ -29,6 +29,13 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
                                      gspLayout          : conf.gsp.layoutAuth]
     }
 
+    def login(){
+        render(view: 'login')
+    }
+
+    def signUp(){
+        render(view: 'signup')
+    }
 
     def facebookLogin(UserCO userCO) {
         def userDetails = User.findByUsername(userCO.username)

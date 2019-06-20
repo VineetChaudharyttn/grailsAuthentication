@@ -3,6 +3,8 @@
 <head>
     <title>Facebook Login JavaScript Example</title>
     <meta charset="UTF-8">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -19,7 +21,7 @@
             crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body ng-app="Login">
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3&appId=2573086076058448&autoLogAppEvents=1"></script>
@@ -144,7 +146,7 @@
             </form>
         </div>
     </nav>
-
+%{--
     <div class="btn-group-toggle mt-3" data-toggle="buttons">
 
         <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option1"
@@ -152,7 +154,13 @@
         <a class="btn btn-secondary float-right mr-3 " type="radio" name="options" id="option2"
            data-toggle="tab" href="#nav-login">Login</a>
     </div>
+    --}%
 
+
+<div ng-view></div>
+
+
+    %{--
     <div class="tab-content p-4" id="nav-tabContent">
         <div class="tab-pane fade  show active" id="nav-login" role="tabpanel" aria-labelledby="nav-login-tab">
             <!-- Login form -->
@@ -183,18 +191,9 @@
 
             <br/>
             <fb:login-button scope="public_profile,email" class="ml-3" onlogin="checkLoginState();">
+                <i class="fab fa-facebook mr-2"></i> Sign In with facebook
             </fb:login-button>
-            <br/>
-            <g:if test="${flash.error != null}">
-                <div class="alert alert-danger" role="alert">
-                    <g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
-                </div>
-            </g:if>
-            <g:if test="${flash.message != null}">
-                <div class="alert alert-success" role="alert">
-                    <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
-                </div>
-            </g:if>
+
         </div>
 
         <div class="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab">
@@ -240,7 +239,18 @@
 
 
     </div>
-
+--}%
+    <br/>
+    <g:if test="${flash.error != null}">
+        <div class="alert alert-danger" role="alert">
+            <g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
+        </div>
+    </g:if>
+    <g:if test="${flash.message != null}">
+        <div class="alert alert-success" role="alert">
+            <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+        </div>
+    </g:if>
     <div class="modal fade" id="forgotPassword" role="dialog">
         <div class="modal-dialog">
 
@@ -256,17 +266,19 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-body">
-                            <form action="/login/resetPassword" method="post" enctype="multipart/form-data">
+                            <form action="/login/resetPassword" method="post" enctype="multipart/form-data" name="forget" novalidate>
                                 <div class="newer-row form-label-group">
                                     <input type="email" ng-model="user.username" name="username" class="form-control"
-                                           placeholder="Email address" required
+                                           placeholder="Email address" ng-model="username" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required
                                            autofocus>
+
+                                    <span style="color:Red" ng-show="forget.username.$dirty&&forget.username.$error.pattern">Please Enter Valid Email</span>
                                 </div>
 
                                 <div class="modal-footer">
                                     <div class="form-group">
 
-                                        <button type="submit" class="btn btn-primary">Reset Password</button>
+                                        <button type="submit" class="btn btn-primary" ng-disabled="forget.$invalid">Reset Password</button>
 
                                         <button type="button" class="btn btn-primary"
                                                 data-dismiss="modal">Close</button>
@@ -283,6 +295,9 @@
     </div>
 </div>
 
+<asset:javascript src="login.js"></asset:javascript>
+<asset:javascript src="controllers/LoginController.js"></asset:javascript>
+<asset:javascript src="controllers/SignUpController.js"></asset:javascript>
 <asset:javascript src="confirmPass.js"></asset:javascript>
 <asset:javascript src="chackMailAvailability.js"></asset:javascript>
 </body>

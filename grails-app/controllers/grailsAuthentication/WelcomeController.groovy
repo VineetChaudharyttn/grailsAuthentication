@@ -58,7 +58,7 @@ class WelcomeController {
     def invite(UserCO userCO){
         User user=springSecurityService.currentUser
         user=User.findByUsername(user.username)
-        String message="Hiiii..... \n You have been invited to join ToDo application by you friend "+user.firstName+" "+user.lastName+ ". \nPlease visit the link bellow \nhttp://localhost:8080/welcome/index\n\n\nThankyou"
+        String message="Hiiii..... \n You have been invited to join ToDo application by you friend "+user.firstName+" "+user.lastName+ ". \nPlease visit the link bellow \n http://localhost:8080/login/auth#/sginUp\n\n\nThankyou"
         mailService.sendMail {
             to userCO.username
             subject 'Invitation from your friend '+user.username

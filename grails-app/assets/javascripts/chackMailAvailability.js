@@ -1,4 +1,5 @@
-$(document).ready(function () {
+
+$(document).click(function () {
     $('#inputEmail').blur(function () {
         var userName=$('#inputEmail').val();
         $.ajax({

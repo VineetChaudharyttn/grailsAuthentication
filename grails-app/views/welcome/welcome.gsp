@@ -42,8 +42,24 @@
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-                <a class="btn btn-outline-success my-2 my-sm-0" href="/logoff">Logout</a>
+                <div class="dropdown">
+                    <button class="btn btn-link bd-search-docs-toggle  p-0 ml-3" type="button" id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"
+                             focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2"
+                                                                        stroke-linecap="round" stroke-miterlimit="10"
+                                                                        d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <a href="/logoff" class="dropdown-item">Logout</a>
+                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#invite">
+                            Invite a friend
+                        </button>
+                    </div>
+                </div>
             </form>
+
         </div>
     </nav>
 
@@ -73,10 +89,13 @@
                     <div class="panel-body">
                         <form action="/welcome/invite" method="post">
                             <div class="newer-row form-label-group">
-                                <input type="email" ng-model="user.username" name="username" class="form-control"
+                                <input type="email" ng-model="user.username" id="inputEmail" name="username"
+                                       class="form-control"
                                        placeholder="Email address" required
                                        autofocus>
                             </div>
+
+                            <div id="unavail"></div>
 
                             <div class="modal-footer">
                                 <div class="form-group">
@@ -96,6 +115,10 @@
 
     </div>
 </div>
+
+%{-- JavaScript --}%
+
+<asset:javascript src="chackMailAvailability.js"></asset:javascript>
 
 %{-- modules --}%
 

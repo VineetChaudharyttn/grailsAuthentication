@@ -74,4 +74,14 @@ class WelcomeController {
         }
     }
 
+    def checkAvailability(String username){
+        log.info("Checking user existence")
+        User user=User.findByUsername(username)
+        if (!user){
+            render ""
+        }
+        else
+            render "<span class='badge badge-danger'>User is already exists " + username + "</span>"
+    }
+
 }

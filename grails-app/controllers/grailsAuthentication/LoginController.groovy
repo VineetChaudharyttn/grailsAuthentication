@@ -4,6 +4,8 @@ import com.grailsAuthentication.Role
 import com.grailsAuthentication.User
 import com.grailsAuthentication.UserRole
 import grails.converters.JSON
+import org.springframework.security.authentication.DisabledException
+import org.springframework.security.web.WebAttributes
 
 class LoginController extends grails.plugin.springsecurity.LoginController {
 
@@ -48,7 +50,12 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
 
     def authfail() {
         log.info("Authentication fails")
+
+        def exception = session[WebAttributes.AUTHENTICATION_EXCEPTION]
         def msg = "Wrong EmailId or Password !!!! please retry."
+        if (exception instanceof DisabledException) {
+            msg = "Sorry, You are inactive.\nPlease contect to admin to re-activate your account."
+        }
         if (springSecurityService.isAjax(request)) {
             render([error: msg] as JSON)
         } else {

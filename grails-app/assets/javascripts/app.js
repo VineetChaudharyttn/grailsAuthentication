@@ -12,6 +12,15 @@ app.config(function ($routeProvider) {
     }).when('/addTask/add',{
         controller: 'AddTaskController',
         templateUrl: '/taskApi/addTask'
+    }).when('/manage/user',{
+        controller: 'ManageUserController',
+        templateUrl: '/welcome/manageUser'
+    }).when('/user/tasks',{
+        controller: 'UserTasksController',
+        templateUrl: '/welcome/usertasks'
+    }).when('/user/tasks/:taskId',{
+        controller: 'UserTaskController',
+        templateUrl: '/welcome/usertask'
     }).otherwise({
         renderTo: '/'
     });

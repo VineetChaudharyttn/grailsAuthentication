@@ -1,11 +1,12 @@
 package grailsAuthentication
 
 import com.grailsAuthentication.Task
+import com.grailsAuthentication.User
 import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import org.springframework.security.access.annotation.Secured
 
-@Secured("ROLE_USER")
+@Secured(["ROLE_USER", "ROLE_ADMIN"])
 class TaskApiController {
 
     SpringSecurityService springSecurityService
@@ -39,5 +40,18 @@ class TaskApiController {
         render "success"
     }
 
+    def user() {
+        Map user = [status: 'success']
+        User currentUser=springSecurityService.currentUser
+        List<UserCO> userCOList = User.findAll("from User as b where not b.username=:username",[username: currentUser.username])
+        user.users = userCOList
+        render user as JSON
+    }
+
+    def updateUser(User user) {
+
+        User.executeUpdate("update User set enabled = " + user.enabled + " where id = " + user.id)
+        render "Success"
+    }
 
 }

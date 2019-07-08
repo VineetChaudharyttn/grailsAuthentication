@@ -7,6 +7,15 @@ login.config(function ($routeProvider) {
     }).when('/sginUp',{
         controller:'SignUpController',
         templateUrl: '/login/signUp'
+    }).when('/manage/user',{
+        controller: 'LoginController',
+        templateUrl: '/login/login'
+    }).when('/user/tasks',{
+        controller: 'LoginController',
+        templateUrl: '/login/login'
+    }).when('/tasks/:id',{
+        controller: 'LoginController',
+        templateUrl: '/login/login'
     }).otherwise({
         renderTo: '/'
     })

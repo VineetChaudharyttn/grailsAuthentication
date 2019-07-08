@@ -1,6 +1,7 @@
 package grailsAuthentication
 
 import com.grailsAuthentication.Role
+import com.grailsAuthentication.Task
 import com.grailsAuthentication.User
 import com.grailsAuthentication.UserRole
 import grails.converters.JSON
@@ -13,7 +14,7 @@ class WelcomeController {
     SpringSecurityService springSecurityService
 
     def mailService
-    @Secured("ROLE_USER")
+    @Secured(["ROLE_USER","ROLE_ADMIN"])
     def index() {
         log.info("ToDo application access")
         render(view: "welcome",model:["user":springSecurityService.currentUser] )
@@ -44,15 +45,20 @@ class WelcomeController {
         else render "exist"
     }
 
-    @Secured("ROLE_USER")
+    @Secured(["ROLE_USER","ROLE_ADMIN"])
     def toDo(){
         render(view: "todoApp/todo")
     }
 
 
-    @Secured("ROLE_USER")
+    @Secured(["ROLE_USER","ROLE_ADMIN"])
     def task(){
         render(view: "todoApp/task")
+    }
+
+    @Secured("ROLE_ADMIN")
+    def manageUser(){
+        render (view: "todoApp/manageuser")
     }
 
     def invite(UserCO userCO){
@@ -82,6 +88,24 @@ class WelcomeController {
         }
         else
             render "<span class='badge badge-danger'>User is already exists " + username + "</span>"
+    }
+
+    @Secured("ROLE_ADMIN")
+    def usertasks(){
+        render(view: "todoApp/usertasks")
+    }
+
+    @Secured("ROLE_ADMIN")
+    def tasks(){
+        Map response=[status:'success']
+        List<Task> taskList=Task.findAll()
+        response.tasks=taskList
+        render response as JSON
+    }
+
+    @Secured("ROLE_ADMIN")
+    def usertask(){
+        render(view: "todoApp/usertask")
     }
 
 }

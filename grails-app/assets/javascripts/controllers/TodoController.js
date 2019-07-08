@@ -1,6 +1,5 @@
 app.controller('TodoController', ['$scope','tasks','registerService', function($scope,tasks,registerService) {
     tasks.success(function(data){
-        console.log(data);
         $scope.tasks=data.tasks;
     });
     $scope.update=function (task) {

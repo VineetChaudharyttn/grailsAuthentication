@@ -16,7 +16,7 @@
                     </h3>
                 </div>
 
-                <div class="col-6">
+                <div class="col-3">
                     <h3>
                         Title
                     </h3>
@@ -25,25 +25,39 @@
                     <h3>
                         Status
                     </h3>
-                </div>
+                </div><div class="col-3">
+                <h3>
+                    User Id
+                </h3>
+            </div>
             </div>
         </div>
         <div class="card-body">
-            <div class="row" ng-repeat="task in tasks">
+            <div class="row" ng-repeat="task in alltasks">
                 <div class="col-3">
                     <h4>
-                        <a href="#/task/{{$index}}">{{task.date | date}}</a>
+                        <a href="#/user/tasks/{{$index}}">{{task.date | date}}</a>
                     </h4>
                 </div>
 
-                <div class="col-6">
+                <div class="col-3">
                     <h4>
-                        <a href="#/task/{{$index}}">{{task.title}}</a>
+                        <a href="#/user/tasks/{{$index}}">{{task.title}}</a>
                     </h4>
                 </div>
                 <div class="col-3">
                     <h3>
-                        <input type="checkbox" ng-model="task.status" ng-click="update(task);" />
+                        <a href="#/user/tasks/{{$index}}">
+                            <span ng-if="task.status">Complete</span>
+                            <span ng-hide="task.status">Panding</span>
+                        </a>
+                    </h3>
+                </div>
+                <div class="col-3">
+                    <h3>
+                        <a href="#/user/tasks/{{$index}}">
+                            {{task.user.id}}
+                        </a>
                     </h3>
                 </div>
             </div>
@@ -53,7 +67,7 @@
                 <div class="col-9">
 
                 </div>
-                <a class="btn btn-outline-success" href="#/addTask/add">+</a>
+                <a href="#" class="btn btn-primary">Back</a>
             </div>
         </div>
     </div>

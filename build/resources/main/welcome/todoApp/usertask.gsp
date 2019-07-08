@@ -9,8 +9,11 @@
 
 <div class="card">
     <div class="card-header">
+        <h2>User Id:
+            {{task.user.id}}
+        </h2>
         <h2>
-        {{task.title}}
+            {{task.title}}
         </h2>
         <div class="float-right">
             Status :
@@ -24,7 +27,7 @@
 
         <p class="card-text">{{task.task}}</p>
 
-        <a href="#/" class="btn btn-primary">Back</a>
+        <a href="#/user/tasks" class="btn btn-primary">Back</a>
     </div>
 </div>
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/grailsAuthentication.iml" filepath="$PROJECT_DIR$/grailsAuthentication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grailsAuthentication_integrationTest.iml" filepath="$PROJECT_DIR$/.idea/modules/grailsAuthentication_integrationTest.iml" group="grailsAuthentication" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grailsAuthentication_main.iml" filepath="$PROJECT_DIR$/.idea/modules/grailsAuthentication_main.iml" group="grailsAuthentication" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/grailsAuthentication_test.iml" filepath="$PROJECT_DIR$/.idea/modules/grailsAuthentication_test.iml" group="grailsAuthentication" />
+    </modules>
+  </component>
+</project>

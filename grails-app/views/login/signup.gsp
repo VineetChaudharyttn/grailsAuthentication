@@ -49,7 +49,8 @@
                                     <label for="inputPassword">Password</label>
                                 </td>
                                 <td>
-                                    <input type="password" id="inputPassword" minlength="6" name="password" class="form-control" ng-model="pass" placeholder="Password" required>
+                                    <input type="password" id="inputPassword" minlength="6" name="password" class="form-control" ng-model="pass" placeholder="Password" ng-model-options="{ updateOn: 'blur' }"  required>
+                                    <span style="color:Red" ng-show="signup.password.$dirty&&signup.password.$error.minlength">Password minmum length is 6</span>
                                 </td>
                             </tr>
                             <tr>
@@ -65,7 +66,7 @@
 
                                 </td>
                                 <td>
-                                    <div id="err"></div>
+                                    <div id="err" ng-show="signup.password.$valid"></div>
                                 </td>
                             </tr>
 

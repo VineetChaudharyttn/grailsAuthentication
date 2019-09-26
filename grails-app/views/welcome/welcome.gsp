@@ -23,45 +23,56 @@
 
 <body ng-app="ToDo">
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index">
+        <asset:image src="todo.png"></asset:image>
+        TODO
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto float-right">
+
+            <li >Welcome ${user.firstName} ${user.lastName}</li>
+            <li >
+
+            </li>
+        </ul>
+
+        <form class="form-inline my-lg-0">
+            <div class="dropdown">
+                <button class="btn btn-link" type="button" id="dropdownMenu2"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="
+                margin-right: 15%;
+                ">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"
+                         focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2"
+                                                                    stroke-linecap="round" stroke-miterlimit="10"
+                                                                    d="M4 7h22M4 15h22M4 23h22"></path></svg>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2">
+                    <a href="/logoff" class="dropdown-item">Logout</a>
+                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#invite">
+                        Invite a friend
+                    </button>
+                    <sec:ifAllGranted roles="ROLE_ADMIN">
+                        <a href="#/manage/user" class="dropdown-item">
+                            Manage User
+                        </a>
+                        <a href="#/user/tasks" class="dropdown-item">
+                            User's Tasks
+                        </a>
+                    </sec:ifAllGranted>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</nav>
+
 <div class="container">
     <!-- Content here -->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index">
-            <asset:image src="todo.png"></asset:image>
-            TODO
-        </a>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto float-right">
-
-                <li class="float-right">Welcome ${user.firstName} ${user.lastName}</li>
-                <li class="float-right">
-
-                </li>
-            </ul>
-
-            <form class="form-inline my-2 my-lg-0">
-                <div class="dropdown">
-                    <button class="btn btn-link bd-search-docs-toggle  p-0 ml-3" type="button" id="dropdownMenu2"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30"
-                             focusable="false"><title>Menu</title><path stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-miterlimit="10"
-                                                                        d="M4 7h22M4 15h22M4 23h22"></path></svg>
-                    </button>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <a href="/logoff" class="dropdown-item">Logout</a>
-                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#invite">
-                            Invite a friend
-                        </button>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-    </nav>
 
     <div ng-view class="mt-3"></div>
 
@@ -132,10 +143,23 @@
 
 <asset:javascript src="controllers/AddTaskController.js"></asset:javascript>
 
+<asset:javascript src="controllers/ManageUserController.js"></asset:javascript>
+
+<asset:javascript src="controllers/UserTasksController.js"></asset:javascript>
+
+<asset:javascript src="controllers/UsetTaskController.js"></asset:javascript>
+
 %{-- services --}%
 
 <asset:javascript src="services/tasks.js"></asset:javascript>
 
 <asset:javascript src="services/registerService.js"></asset:javascript>
+
+<asset:javascript src="services/user.js"></asset:javascript>
+
+<asset:javascript src="services/updateUser.js"></asset:javascript>
+
+<asset:javascript src="services/alltasks.js"></asset:javascript>
+
 </body>
 </html>

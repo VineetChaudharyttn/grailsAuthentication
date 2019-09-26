@@ -32,13 +32,13 @@
             <div class="row" ng-repeat="task in tasks">
                 <div class="col-3">
                     <h4>
-                        <a href="#/{{$index}}">{{task.date | date}}</a>
+                        <a href="#/task/{{$index}}">{{task.date | date}}</a>
                     </h4>
                 </div>
 
                 <div class="col-6">
                     <h4>
-                        <a href="#/{{$index}}">{{task.title}}</a>
+                        <a href="#/task/{{$index}}">{{task.title}}</a>
                     </h4>
                 </div>
                 <div class="col-3">
@@ -51,9 +51,7 @@
         <div class="card-footer">
             <div class="row">
                 <div class="col-9">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invite">
-                        Invite a friend
-                    </button>
+
                 </div>
                 <a class="btn btn-outline-success" href="#/addTask/add">+</a>
             </div>
